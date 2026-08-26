@@ -1,0 +1,15 @@
+# Generated OpenTofu and pre-commit data
+/.terraform/
+/.bootstrap/
+/.terraform.lock.hcl
+/*.tfstate
+/*.tfstate.*
+/plan-output.txt
+/.pre-commit-config.yaml
+/.pre-commit-config.yaml.tmp
+
+# Local bootstrap and credential configuration
+/bootstrap.auto.tfvars
+/terraform.tfvars
+/secrets/*.decrypted.yaml
+*.json

@@ -1,0 +1,62 @@
+formatter: "markdown"
+
+output:
+  file: "README.md"
+  mode: replace
+  template: |
+    # Make IT Work Cloud GCP OpenTofu root
+
+    This root creates and manages the Make IT Work Cloud GCP project, its GCS
+    OpenTofu backend, the Cloud KMS key used by SOPS, GitHub Actions Workload
+    Identity Federation, project API enablement, restricted API keys, and an
+    optional billing budget.
+
+    ## Bootstrap
+
+    Use user Application Default Credentials for the one-time bootstrap. Do not
+    create a service-account key file.
+
+    1. Confirm the project ID is available and that the active identity can create
+       a project, attach the configured billing account, enable services, and grant
+       IAM roles.
+    2. Run `make bootstrap-plan`. This creates an ignored, backend-free local copy
+       solely for the initial stateful bootstrap.
+    3. Review and explicitly approve the local-state plan, then run
+       `make bootstrap-apply`.
+    4. After the state bucket exists, run `make bootstrap-migrate` to move state
+       to GCS and remove the local bootstrap workspace.
+    5. Configure GitHub Actions with the `github_workload_identity_provider` and
+       `terraformer_service_account_email` outputs. Protect `main`, because any
+       workflow in this repository can impersonate the automation account.
+
+    `terraformer_project_roles` defaults to `roles/owner` so the root can manage
+    all project resources. This is intentionally explicit and should be narrowed
+    once the required resource set is established.
+
+    ## API keys
+
+    `api_keys` defaults to an empty map. Any key created by this root must define
+    at least one allowed API service and exactly one application restriction type:
+    HTTP referrers for browser clients or source IP addresses for server clients.
+    Use `generativelanguage.googleapis.com` as the API target for Gemini Developer
+    API keys. API key strings are never declared in source or outputs, but provider
+    state can still contain sensitive key material; protect the GCS backend
+    accordingly.
+
+    ## SOPS
+
+    After the initial apply creates the KMS key, create encrypted application
+    configuration under `secrets/` with the recipient defined in `.sops.yaml`.
+    Never commit plaintext secrets or decrypt them to terminal output.
+
+    <!-- BEGIN_TF_DOCS -->
+    {{ .Content }}
+    <!-- END_TF_DOCS -->
+
+settings:
+  color: false
+  lockfile: false
+
+sort:
+  enabled: true
+  by: name

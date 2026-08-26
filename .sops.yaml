@@ -1,0 +1,3 @@
+creation_rules:
+  - path_regex: secrets/.*\.yaml$
+    gcp_kms: projects/makeitworkcloud/locations/us-west3/keyRings/sops/cryptoKeys/sops
