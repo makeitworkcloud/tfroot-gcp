@@ -22,3 +22,13 @@ output "github_workload_identity_provider" {
   description = "GitHub Actions Workload Identity Provider resource name."
   value       = google_iam_workload_identity_pool_provider.github.name
 }
+
+output "opencode_mcp_service_account_email" {
+  description = "Keyless service account for the managed Google Cloud MCP server."
+  value       = google_service_account.opencode_mcp.email
+}
+
+output "opencode_mcp_workload_identity_provider" {
+  description = "WIF provider for the OpenCode Kubernetes ServiceAccount."
+  value       = google_iam_workload_identity_pool_provider.opencode_kubernetes.name
+}
