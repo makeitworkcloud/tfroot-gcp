@@ -22,3 +22,5 @@ jobs:
     with:
       gcp-workload-identity-provider: projects/920734942788/locations/global/workloadIdentityPools/github/providers/github
       gcp-service-account: terraformer@makeitworkcloud.iam.gserviceaccount.com
+    secrets:
+      CHART_UPDATER_GITHUB_APP_PRIVATE_KEY: ${{ secrets.CHART_UPDATER_GITHUB_APP_PRIVATE_KEY }}
