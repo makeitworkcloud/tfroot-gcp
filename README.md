@@ -110,10 +110,10 @@ No modules.
 | <a name="output_gcloud_mcp_service_account_email"></a> [gcloud\_mcp\_service\_account\_email](#output\_gcloud\_mcp\_service\_account\_email) | Keyless service account for the cluster-internal gcloud MCP server. |
 | <a name="output_gcloud_mcp_workload_identity_provider"></a> [gcloud\_mcp\_workload\_identity\_provider](#output\_gcloud\_mcp\_workload\_identity\_provider) | WIF provider for the gcloud MCP Kubernetes ServiceAccount. |
 | <a name="output_github_workload_identity_provider"></a> [github\_workload\_identity\_provider](#output\_github\_workload\_identity\_provider) | GitHub Actions Workload Identity Provider resource name. |
-| <a name="output_opencode_mcp_service_account_email"></a> [opencode\_mcp\_service\_account\_email](#output\_opencode\_mcp\_service\_account\_email) | Keyless service account for the managed Google Cloud MCP server after bootstrap. |
+| <a name="output_opencode_mcp_service_account_email"></a> [opencode\_mcp\_service\_account\_email](#output\_opencode\_mcp\_service\_account\_email) | Keyless service account for the managed Google Cloud MCP server. |
 | <a name="output_opencode_mcp_workload_identity_provider"></a> [opencode\_mcp\_workload\_identity\_provider](#output\_opencode\_mcp\_workload\_identity\_provider) | WIF provider for the OpenCode Kubernetes ServiceAccount. |
 | <a name="output_project_id"></a> [project\_id](#output\_project\_id) | Created GCP project ID. |
 | <a name="output_sops_kms_resource"></a> [sops\_kms\_resource](#output\_sops\_kms\_resource) | Cloud KMS resource for SOPS gcp\_kms recipients. |
-| <a name="output_state_bucket_name"></a> [state\_bucket\_name](#output\_state\_bucket\_name) | GCS bucket to configure as the OpenTofu backend. |
+| <a name="output_state_bucket_name"></a> [state\_bucket\_name](#output\_state\_bucket\_name) | GCS bucket to configure as the OpenTofu backend after bootstrap. |
 | <a name="output_terraformer_service_account_email"></a> [terraformer\_service\_account\_email](#output\_terraformer\_service\_account\_email) | GitHub Actions Workload Identity Federation service account email. |
 <!-- END_TF_DOCS -->
