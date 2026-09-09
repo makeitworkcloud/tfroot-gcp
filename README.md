@@ -69,16 +69,20 @@ No modules.
 | [google_billing_budget.project](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/billing_budget) | resource |
 | [google_iam_workload_identity_pool.github](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/iam_workload_identity_pool) | resource |
 | [google_iam_workload_identity_pool.kubernetes](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/iam_workload_identity_pool) | resource |
+| [google_iam_workload_identity_pool_provider.gcloud_mcp_kubernetes](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/iam_workload_identity_pool_provider) | resource |
 | [google_iam_workload_identity_pool_provider.github](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/iam_workload_identity_pool_provider) | resource |
 | [google_iam_workload_identity_pool_provider.opencode_kubernetes](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/iam_workload_identity_pool_provider) | resource |
 | [google_kms_crypto_key.sops](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/kms_crypto_key) | resource |
 | [google_kms_key_ring.sops](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/kms_key_ring) | resource |
 | [google_project.this](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/project) | resource |
+| [google_project_iam_member.gcloud_mcp](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/project_iam_member) | resource |
 | [google_project_iam_member.opencode_mcp](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/project_iam_member) | resource |
 | [google_project_iam_member.terraformer](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/project_iam_member) | resource |
 | [google_project_service.this](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/project_service) | resource |
+| [google_service_account.gcloud_mcp](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/service_account) | resource |
 | [google_service_account.opencode_mcp](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/service_account) | resource |
 | [google_service_account.terraformer](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/service_account) | resource |
+| [google_service_account_iam_member.gcloud_mcp_workload_identity_user](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/service_account_iam_member) | resource |
 | [google_service_account_iam_member.github_workload_identity_user](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/service_account_iam_member) | resource |
 | [google_service_account_iam_member.opencode_mcp_workload_identity_user](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/service_account_iam_member) | resource |
 | [google_storage_bucket.state](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/storage_bucket) | resource |
@@ -103,11 +107,13 @@ No modules.
 
 | Name | Description |
 | ---- | ----------- |
+| <a name="output_gcloud_mcp_service_account_email"></a> [gcloud\_mcp\_service\_account\_email](#output\_gcloud\_mcp\_service\_account\_email) | Keyless service account for the cluster-internal gcloud MCP server. |
+| <a name="output_gcloud_mcp_workload_identity_provider"></a> [gcloud\_mcp\_workload\_identity\_provider](#output\_gcloud\_mcp\_workload\_identity\_provider) | WIF provider for the gcloud MCP Kubernetes ServiceAccount. |
 | <a name="output_github_workload_identity_provider"></a> [github\_workload\_identity\_provider](#output\_github\_workload\_identity\_provider) | GitHub Actions Workload Identity Provider resource name. |
-| <a name="output_opencode_mcp_service_account_email"></a> [opencode\_mcp\_service\_account\_email](#output\_opencode\_mcp\_service\_account\_email) | Keyless service account for the managed Google Cloud MCP server. |
+| <a name="output_opencode_mcp_service_account_email"></a> [opencode\_mcp\_service\_account\_email](#output\_opencode\_mcp\_service\_account\_email) | Keyless service account for the managed Google Cloud MCP server after bootstrap. |
 | <a name="output_opencode_mcp_workload_identity_provider"></a> [opencode\_mcp\_workload\_identity\_provider](#output\_opencode\_mcp\_workload\_identity\_provider) | WIF provider for the OpenCode Kubernetes ServiceAccount. |
 | <a name="output_project_id"></a> [project\_id](#output\_project\_id) | Created GCP project ID. |
 | <a name="output_sops_kms_resource"></a> [sops\_kms\_resource](#output\_sops\_kms\_resource) | Cloud KMS resource for SOPS gcp\_kms recipients. |
-| <a name="output_state_bucket_name"></a> [state\_bucket\_name](#output\_state\_bucket\_name) | GCS bucket to configure as the OpenTofu backend after bootstrap. |
+| <a name="output_state_bucket_name"></a> [state\_bucket\_name](#output\_state\_bucket\_name) | GCS bucket to configure as the OpenTofu backend. |
 | <a name="output_terraformer_service_account_email"></a> [terraformer\_service\_account\_email](#output\_terraformer\_service\_account\_email) | GitHub Actions Workload Identity Federation service account email. |
 <!-- END_TF_DOCS -->
