@@ -3,6 +3,14 @@ TOFU       := $(shell command -v tofu)
 GCS_BUCKET ?= makeitworkcloud-tf-gcp-infra
 GCS_PREFIX ?= state
 
+# The reusable workflow assigns the protected GitHub Environment and emits this
+# marker only from its apply step. Keep local `make apply` interactive and make
+# CI non-interactive only after that explicit environment-gated invocation.
+TOFU_APPLY_ARGS :=
+ifeq ($(GITHUB_ACTIONS):$(OPENTOFU_ENVIRONMENT_GATED),true:true)
+TOFU_APPLY_ARGS := -auto-approve -input=false
+endif
+
 .PHONY: help bootstrap-prepare bootstrap-plan bootstrap-apply bootstrap-migrate init plan apply test pre-commit-config pre-commit-check-deps pre-commit-install-hooks
 
 help:
@@ -53,7 +61,7 @@ plan: init
 	@$(TOFU) plan -compact-warnings
 
 apply: init
-	@$(TOFU) apply -compact-warnings
+	@$(TOFU) apply -compact-warnings $(TOFU_APPLY_ARGS)
 
 test: pre-commit-config pre-commit-install-hooks
 	@pre-commit run --all-files
