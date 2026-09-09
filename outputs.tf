@@ -24,7 +24,7 @@ output "github_workload_identity_provider" {
 }
 
 output "opencode_mcp_service_account_email" {
-  description = "Keyless service account for the managed Google Cloud MCP server."
+  description = "Keyless service account for the managed Google Cloud MCP server after bootstrap."
   value       = google_service_account.opencode_mcp.email
 }
 
