@@ -3,6 +3,7 @@ locals {
 
   project_services = toset([
     "apikeys.googleapis.com",
+    "cloudasset.googleapis.com",
     "cloudbilling.googleapis.com",
     "cloudcli.googleapis.com",
     "cloudkms.googleapis.com",

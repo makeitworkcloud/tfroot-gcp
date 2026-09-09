@@ -4,7 +4,7 @@ output "project_id" {
 }
 
 output "state_bucket_name" {
-  description = "GCS bucket to configure as the OpenTofu backend after bootstrap."
+  description = "GCS bucket to configure as the OpenTofu backend."
   value       = google_storage_bucket.state.name
 }
 
@@ -31,4 +31,14 @@ output "opencode_mcp_service_account_email" {
 output "opencode_mcp_workload_identity_provider" {
   description = "WIF provider for the OpenCode Kubernetes ServiceAccount."
   value       = google_iam_workload_identity_pool_provider.opencode_kubernetes.name
+}
+
+output "gcloud_mcp_service_account_email" {
+  description = "Keyless service account for the cluster-internal gcloud MCP server."
+  value       = google_service_account.gcloud_mcp.email
+}
+
+output "gcloud_mcp_workload_identity_provider" {
+  description = "WIF provider for the gcloud MCP Kubernetes ServiceAccount."
+  value       = google_iam_workload_identity_pool_provider.gcloud_mcp_kubernetes.name
 }

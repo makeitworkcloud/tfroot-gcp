@@ -39,6 +39,31 @@ resource "google_project_iam_member" "opencode_mcp" {
   member  = "serviceAccount:${google_service_account.opencode_mcp.email}"
 }
 
+# This identity backs the cluster-internal local gcloud-mcp server. Its roles
+# support project-wide asset and IAM metadata inventory without resource
+# mutation, Secret Manager payload access, or Cloud Storage object reads.
+resource "google_service_account" "gcloud_mcp" {
+  project      = google_project.this.project_id
+  account_id   = "gcloud-mcp"
+  display_name = "OpenCode gcloud MCP"
+
+  depends_on = [google_project_service.this]
+}
+
+resource "google_project_iam_member" "gcloud_mcp" {
+  for_each = toset([
+    "roles/cloudasset.viewer",
+    "roles/cloudkms.viewer",
+    "roles/iam.securityReviewer",
+    "roles/serviceusage.serviceUsageConsumer",
+    "roles/serviceusage.serviceUsageViewer",
+  ])
+
+  project = google_project.this.project_id
+  role    = each.value
+  member  = "serviceAccount:${google_service_account.gcloud_mcp.email}"
+}
+
 resource "google_iam_workload_identity_pool" "github" {
   project                   = google_project.this.project_id
   workload_identity_pool_id = "github"
@@ -106,4 +131,30 @@ resource "google_service_account_iam_member" "opencode_mcp_workload_identity_use
   service_account_id = google_service_account.opencode_mcp.name
   role               = "roles/iam.workloadIdentityUser"
   member             = "principal://iam.googleapis.com/${google_iam_workload_identity_pool.kubernetes.name}/subject/system:serviceaccount:opencode:opencode-mcp"
+}
+
+# A separate provider avoids broadening the existing OpenCode federation
+# condition. Only the dedicated cluster-internal gcloud-mcp workload can
+# impersonate this Google service account.
+resource "google_iam_workload_identity_pool_provider" "gcloud_mcp_kubernetes" {
+  project                            = google_project.this.project_id
+  workload_identity_pool_id          = google_iam_workload_identity_pool.kubernetes.workload_identity_pool_id
+  workload_identity_pool_provider_id = "gcloud-mcp"
+  display_name                       = "gcloud MCP k3s workload"
+
+  attribute_mapping = {
+    "google.subject" = "assertion.sub"
+  }
+
+  attribute_condition = "assertion.sub == \"system:serviceaccount:mcp:gcloud-mcp\""
+
+  oidc {
+    issuer_uri = "https://api.makeitwork.cloud"
+  }
+}
+
+resource "google_service_account_iam_member" "gcloud_mcp_workload_identity_user" {
+  service_account_id = google_service_account.gcloud_mcp.name
+  role               = "roles/iam.workloadIdentityUser"
+  member             = "principal://iam.googleapis.com/${google_iam_workload_identity_pool.kubernetes.name}/subject/system:serviceaccount:mcp:gcloud-mcp"
 }
